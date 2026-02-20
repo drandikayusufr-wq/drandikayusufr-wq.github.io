@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Klinik Utama Rawat Inap Ananda</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --teal:       #0B7E7A;
+  --teal-dark:  #075956;
+  --teal-light: #E8F5F4;
+  --teal-pale:  #F2FAF9;
+  --gold:       #C8943A;
+  --gold-light: #F6E8CE;
+  --gold-pale:  #FFFBF4;
+  --cream:      #FDFAF5;
+  --white:      #FFFFFF;
+  --text:       #1A2E2C;
+  --text2:      #3D5552;
+  --muted:      #7A9896;
+  --border:     #D8EDEC;
+  --shadow:     rgba(11,126,122,0.10);
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+/* ══════ SCROLLBAR ══════ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 3px; }
+
+/* ══════ NAVBAR ══════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(253,250,245,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 40px;
+  height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 4px 24px var(--shadow); }
+
+.nav-logo {
+  display: flex; align-items: center; gap: 12px;
+  text-decoration: none;
+}
+.nav-logo-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: #fff; flex-shrink: 0;
+}
+.nav-logo-text { line-height: 1.2; }
+.nav-logo-text .name { font-weight: 700; font-size: 14px; color: var(--text); }
+.nav-logo-text .sub  { font-size: 10px; color: var(--muted); letter-spacing: 0.5px; }
+
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a { text-decoration: none; font-size: 13.5px; font-weight: 500; color: var(--text2); transition: color 0.2s; }
+.nav-links a:hover { color: var(--teal); }
+
+.nav-cta {
+  background: var(--teal); color: #fff; text-decoration: none;
+  font-size: 13px; font-weight: 600; padding: 10px 22px;
+  border-radius: 30px; transition: background 0.2s, transform 0.2s;
+  white-space: nowrap;
+}
+.nav-cta:hover { background: var(--teal-dark); transform: translateY(-1px); }
+
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
+
+/* ══════ HERO ══════ */
+.hero {
+  min-height: 100vh;
+  padding-top: 68px;
+  background: linear-gradient(160deg, var(--teal-pale) 0%, var(--cream) 50%, var(--gold-pale) 100%);
+  display: flex; align-items: center;
+  position: relative; overflow: hidden;
+}
+.hero-blob1 {
+  position: absolute; top: -100px; right: -100px;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(11,126,122,0.10) 0%, transparent 70%);
+  animation: float1 8s ease-in-out infinite alternate;
+}
+.hero-blob2 {
+  position: absolute; bottom: -80px; left: -80px;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,148,58,0.09) 0%, transparent 70%);
+  animation: float2 10s ease-in-out infinite alternate;
+}
+@keyframes float1 { from{transform:translate(0,0);} to{transform:translate(-30px,30px);} }
+@keyframes float2 { from{transform:translate(0,0);} to{transform:translate(20px,-20px);} }
+
+.hero-inner {
+  max-width: 1100px; margin: 0 auto; padding: 80px 40px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  position: relative; z-index: 1;
+}
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--teal-light); color: var(--teal-dark);
+  font-size: 12px; font-weight: 600; letter-spacing: 1px;
+  padding: 7px 16px; border-radius: 30px; margin-bottom: 24px;
+  border: 1px solid rgba(11,126,122,0.2);
+  animation: fadeUp 0.6s ease both;
+}
+.hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 700; line-height: 1.1;
+  margin-bottom: 20px;
+  animation: fadeUp 0.7s ease both;
+}
+.hero-title .accent { color: var(--teal); font-style: italic; }
+.hero-title .gold { color: var(--gold); }
+
+.hero-desc {
+  font-size: 15px; color: var(--text2); line-height: 1.85;
+  max-width: 460px; margin-bottom: 36px;
+  animation: fadeUp 0.8s ease both;
+}
+
+.hero-actions {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  animation: fadeUp 0.9s ease both;
+}
+.btn-primary {
+  background: var(--teal); color: #fff;
+  padding: 14px 28px; border-radius: 30px;
+  font-size: 14px; font-weight: 600; text-decoration: none;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(11,126,122,0.3);
+  display: flex; align-items: center; gap: 8px;
+}
+.btn-primary:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(11,126,122,0.35); }
+.btn-outline {
+  border: 1.5px solid var(--teal); color: var(--teal);
+  padding: 14px 28px; border-radius: 30px;
+  font-size: 14px; font-weight: 600; text-decoration: none;
+  transition: all 0.2s; display: flex; align-items: center; gap: 8px;
+}
+.btn-outline:hover { background: var(--teal-light); }
+
+.hero-stats {
+  display: flex; gap: 28px; margin-top: 40px;
+  animation: fadeUp 1s ease both;
+}
+.hero-stat .num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px; font-weight: 700; color: var(--teal); line-height: 1;
+}
+.hero-stat .lbl { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* Hero visual card */
+.hero-visual { animation: fadeUp 0.8s ease 0.2s both; }
+.hero-card-main {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 20px 60px var(--shadow), 0 4px 16px rgba(0,0,0,0.06);
+  position: relative;
+}
+.hero-card-main::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--teal), var(--gold));
+  border-radius: 24px 24px 0 0;
+}
+.hc-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.hc-avatar {
+  width: 56px; height: 56px; border-radius: 16px;
+  background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+}
+.hc-title { font-weight: 700; font-size: 15px; }
+.hc-sub { font-size: 12px; color: var(--muted); }
+
+.hc-services { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.hc-service {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--teal-pale); border-radius: 12px; padding: 12px 16px;
+  transition: background 0.2s;
+}
+.hc-service:hover { background: var(--teal-light); }
+.hc-service-icon { font-size: 20px; }
+.hc-service-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.hc-service-desc { font-size: 11px; color: var(--muted); }
+.hc-service-arrow { margin-left: auto; color: var(--teal); font-size: 14px; }
+
+.hc-badge {
+  background: var(--gold-light); border-radius: 12px; padding: 12px 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hc-badge-icon { font-size: 22px; }
+.hc-badge-text { font-size: 12px; font-weight: 600; color: var(--gold); }
+.hc-badge-sub { font-size: 11px; color: var(--text2); }
+
+/* Floating card */
+.hero-float {
+  position: absolute; bottom: -20px; right: -20px;
+  background: var(--white); border-radius: 16px; padding: 14px 18px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  display: flex; align-items: center; gap: 10px;
+  animation: floatCard 4s ease-in-out infinite;
+}
+@keyframes floatCard { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+.hf-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; }
+.hf-text { font-size: 12px; font-weight: 600; }
+.hf-sub { font-size: 10px; color: var(--muted); }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+
+/* ══════ SECTION BASE ══════ */
+section { padding: 96px 40px; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-tag {
+  display: inline-block;
+  font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 14px;
+  position: relative;
+}
+.section-tag::before { content: '—— '; }
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(30px, 5vw, 48px); font-weight: 700; line-height: 1.15;
+  margin-bottom: 16px; color: var(--text);
+}
+.section-title em { color: var(--teal); font-style: italic; }
+.section-desc { font-size: 15px; color: var(--text2); line-height: 1.8; max-width: 540px; }
+
+/* ══════ LAYANAN ══════ */
+#layanan { background: var(--white); }
+.services-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px;
+  margin-top: 52px;
+}
+.service-card {
+  background: var(--cream); border-radius: 20px; padding: 28px 24px;
+  border: 1px solid var(--border);
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  cursor: default;
+}
+.service-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px var(--shadow); border-color: var(--teal); }
+.sc-icon {
+  width: 56px; height: 56px; border-radius: 16px;
+  background: var(--teal-light); display: flex; align-items: center; justify-content: center;
+  font-size: 26px; margin-bottom: 18px;
+  transition: background 0.3s;
+}
+.service-card:hover .sc-icon { background: var(--teal); }
+.sc-title { font-weight: 700; font-size: 16px; margin-bottom: 8px; }
+.sc-desc { font-size: 13px; color: var(--text2); line-height: 1.7; }
+
+/* ══════ VITAMIN PACKAGES ══════ */
+#paket { background: linear-gradient(160deg, var(--teal-dark) 0%, var(--teal) 100%); color: #fff; }
+#paket .section-tag { color: rgba(255,255,255,0.6); }
+#paket .section-tag::before { content: '—— '; }
+#paket .section-title { color: #fff; }
+#paket .section-title em { color: var(--gold-light); }
+#paket .section-desc { color: rgba(255,255,255,0.7); }
+
+.packages-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px;
+  margin-top: 52px;
+}
+.pkg-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px; padding: 24px 20px;
+  transition: transform 0.3s, background 0.3s, border-color 0.3s;
+  position: relative; overflow: hidden;
+}
+.pkg-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.pkg-card.bronze::before { background: linear-gradient(90deg, #8B5A2B, #C07840); }
+.pkg-card.silver::before { background: linear-gradient(90deg, #6B7A8A, #D0DCE8); }
+.pkg-card.gold::before   { background: linear-gradient(90deg, #8A6010, #D4A843, #F0CA6A); }
+.pkg-card.anemia::before { background: linear-gradient(90deg, #8B0000, #E05A5A); }
+.pkg-card.immune::before { background: linear-gradient(90deg, #0A5A55, #2EC4B6); }
+
+.pkg-card:hover { transform: translateY(-6px); background: rgba(255,255,255,0.13); border-color: rgba(255,255,255,0.25); }
+.pkg-card.gold { border-color: rgba(212,168,67,0.4); background: rgba(212,168,67,0.08); }
+
+.pkg-tier {
+  font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.pkg-card.bronze .pkg-tier { color: #C07840; }
+.pkg-card.silver .pkg-tier { color: #D0DCE8; }
+.pkg-card.gold   .pkg-tier { color: #F0CA6A; }
+.pkg-card.anemia .pkg-tier { color: #E05A5A; }
+.pkg-card.immune .pkg-tier { color: #2EC4B6; }
+
+.pkg-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 14px;
+}
+.pkg-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px; font-weight: 700; margin-bottom: 4px;
+}
+.pkg-card.bronze .pkg-price { color: #C07840; }
+.pkg-card.silver .pkg-price { color: #D0DCE8; }
+.pkg-card.gold   .pkg-price { color: #F0CA6A; }
+.pkg-card.anemia .pkg-price { color: #E05A5A; }
+.pkg-card.immune .pkg-price { color: #2EC4B6; }
+
+.pkg-target { font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 16px; }
+.pkg-divider { height: 1px; background: rgba(255,255,255,0.1); margin-bottom: 14px; }
+.pkg-contents { display: flex; flex-wrap: wrap; gap: 5px; }
+.pkg-pill {
+  font-size: 10px; padding: 3px 9px; border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.65);
+  background: rgba(255,255,255,0.04);
+}
+.pkg-featured { position: absolute; top: 14px; right: 14px; background: #F0CA6A; color: #000; font-size: 8px; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
+
+/* ══════ DOKTER ══════ */
+#dokter { background: var(--cream); }
+.doctors-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px; margin-top: 52px; }
+.doctor-card {
+  background: var(--white); border-radius: 20px; overflow: hidden;
+  border: 1px solid var(--border);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.doctor-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px var(--shadow); }
+.doctor-photo {
+  height: 160px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 64px;
+  position: relative; overflow: hidden;
+}
+.doctor-photo.teal  { background: linear-gradient(160deg, var(--teal-light), var(--teal-pale)); }
+.doctor-photo.gold  { background: linear-gradient(160deg, var(--gold-light), var(--gold-pale)); }
+.doctor-photo.green { background: linear-gradient(160deg, #dcf5e8, #f0fdf4); }
+.doctor-photo.blue  { background: linear-gradient(160deg, #dbeafe, #eff6ff); }
+
+.doctor-info { padding: 20px; }
+.doctor-name { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+.doctor-spec { font-size: 12px; color: var(--teal); font-weight: 600; margin-bottom: 6px; }
+.doctor-days { font-size: 11px; color: var(--muted); }
+.doctor-badge {
+  display: inline-block; background: var(--teal-light); color: var(--teal-dark);
+  font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 20px; margin-top: 10px;
+}
+
+/* ══════ TESTIMONIAL ══════ */
+#testimoni { background: var(--white); }
+.testi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 52px; }
+.testi-card {
+  background: var(--cream); border-radius: 20px; padding: 28px;
+  border: 1px solid var(--border);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.testi-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px var(--shadow); }
+.testi-stars { color: #F59E0B; font-size: 14px; margin-bottom: 14px; }
+.testi-text { font-size: 14px; color: var(--text2); line-height: 1.8; margin-bottom: 18px; font-style: italic; }
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--teal-light); display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 700; color: var(--teal);
+}
+.testi-name { font-weight: 700; font-size: 13px; }
+.testi-role { font-size: 11px; color: var(--muted); }
+
+/* ══════ KONTAK ══════ */
+#kontak { background: var(--cream); }
+.kontak-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; margin-top: 52px; }
+.kontak-info { display: flex; flex-direction: column; gap: 20px; }
+.kontak-item {
+  display: flex; align-items: flex-start; gap: 16px;
+  background: var(--white); border-radius: 16px; padding: 20px;
+  border: 1px solid var(--border);
+  transition: border-color 0.2s;
+}
+.kontak-item:hover { border-color: var(--teal); }
+.ki-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: var(--teal-light); display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.ki-label { font-size: 11px; color: var(--muted); margin-bottom: 4px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+.ki-val { font-size: 14px; font-weight: 600; color: var(--text); }
+.ki-sub { font-size: 12px; color: var(--text2); margin-top: 2px; }
+
+.kontak-form { background: var(--white); border-radius: 20px; padding: 32px; border: 1px solid var(--border); }
+.form-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 700; margin-bottom: 24px; }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--text2); margin-bottom: 6px; letter-spacing: 0.5px; }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; padding: 12px 16px;
+  border: 1.5px solid var(--border); border-radius: 10px;
+  font-family: inherit; font-size: 14px; color: var(--text);
+  background: var(--cream); outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color: var(--teal); box-shadow: 0 0 0 3px rgba(11,126,122,0.1);
+}
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.btn-submit {
+  width: 100%; background: var(--teal); color: #fff;
+  border: none; padding: 14px; border-radius: 10px;
+  font-size: 15px; font-weight: 700; cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  margin-top: 4px;
+}
+.btn-submit:hover { background: var(--teal-dark); transform: translateY(-1px); }
+
+/* ══════ MAP ══════ */
+.map-placeholder {
+  background: var(--teal-pale); border-radius: 20px; height: 240px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px; border: 2px dashed var(--border); margin-top: 20px;
+}
+.map-placeholder .map-icon { font-size: 40px; }
+.map-placeholder p { font-size: 13px; color: var(--muted); text-align: center; line-height: 1.6; }
+
+/* ══════ FOOTER ══════ */
+footer {
+  background: var(--teal-dark); color: rgba(255,255,255,0.8);
+  padding: 60px 40px 30px;
+}
+.footer-inner { max-width: 1100px; margin: 0 auto; }
+.footer-top {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+  padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 30px;
+}
+.footer-brand .fb-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 8px;
+}
+.footer-brand .fb-name span { color: #A8E6E3; font-style: italic; }
+.footer-brand p { font-size: 13px; line-height: 1.8; color: rgba(255,255,255,0.6); max-width: 260px; }
+.footer-brand .fb-wa {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #25D366; color: #fff; padding: 10px 18px;
+  border-radius: 30px; font-size: 13px; font-weight: 600;
+  text-decoration: none; margin-top: 16px;
+  transition: background 0.2s, transform 0.2s;
+}
+.footer-brand .fb-wa:hover { background: #1ebe5d; transform: translateY(-1px); }
+
+.footer-col h4 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 16px; letter-spacing: 0.5px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col ul li a { text-decoration: none; font-size: 13px; color: rgba(255,255,255,0.6); transition: color 0.2s; }
+.footer-col ul li a:hover { color: #A8E6E3; }
+
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; color: rgba(255,255,255,0.4); flex-wrap: wrap; gap: 10px;
+}
+
+/* ══════ WA FLOAT ══════ */
+.wa-float {
+  position: fixed; bottom: 28px; right: 28px; z-index: 999;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: #25D366; color: #fff; font-size: 26px;
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none; box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: waPop 0.5s 1.5s ease both;
+}
+.wa-float:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37,211,102,0.6); }
+@keyframes waPop { from{opacity:0;transform:scale(0);} to{opacity:1;transform:scale(1);} }
+.wa-pulse {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: rgba(37,211,102,0.4);
+  animation: waPulse 2s ease infinite;
+}
+@keyframes waPulse { 0%{transform:scale(1);opacity:0.8;} 100%{transform:scale(1.6);opacity:0;} }
+
+/* ══════ MOBILE ══════ */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+
+  section { padding: 64px 20px; }
+
+  .hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 40px 20px; }
+  .hero-visual { display: none; }
+  .hero-stats { gap: 16px; flex-wrap: wrap; }
+
+  .kontak-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .footer-top { grid-template-columns: 1fr; }
+  .packages-grid { grid-template-columns: 1fr; }
+}
+
+/* ══════ SCROLL REVEAL ══════ */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">🏥</div>
+    <div class="nav-logo-text">
+      <div class="name">Klinik Ananda</div>
+      <div class="sub">Rawat Inap Utama</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#layanan">Layanan</a></li>
+    <li><a href="#paket">Paket Vitamin</a></li>
+    <li><a href="#dokter">Dokter</a></li>
+    <li><a href="#testimoni">Testimoni</a></li>
+    <li><a href="#kontak">Kontak</a></li>
+  </ul>
+  <a href="#kontak" class="nav-cta">📅 Daftar Sekarang</a>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="home">
+  <div class="hero-blob1"></div>
+  <div class="hero-blob2"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge"><span class="dot"></span> Melayani dengan Sepenuh Hati Sejak 2022</div>
+      <h1 class="hero-title">
+        Kesehatan Anda,<br>
+        <span class="accent">Prioritas</span><br>
+        <span class="gold">Utama Kami</span>
+      </h1>
+      <p class="hero-desc">
+        Klinik Utama Rawat Inap Ananda hadir memberikan pelayanan kesehatan profesional, nyaman, dan terpercaya untuk seluruh keluarga Anda — 24 jam sehari, 7 hari seminggu.
+      </p>
+      <div class="hero-actions">
+        <a href="#kontak" class="btn-primary">📅 Buat Janji Temu</a>
+        <a href="#layanan" class="btn-outline">Lihat Layanan →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num">3+</div><div class="lbl">Tahun Beroperasi</div></div>
+        <div class="hero-stat"><div class="num">5k+</div><div class="lbl">Pasien Tertangani</div></div>
+        <div class="hero-stat"><div class="num">10+</div><div class="lbl">Tenaga Medis</div></div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-card-main">
+        <div class="hc-header">
+          <div class="hc-avatar">🏥</div>
+          <div>
+            <div class="hc-title">Klinik Utama Rawat Inap Ananda</div>
+            <div class="hc-sub">Layanan Kesehatan 24 Jam</div>
+          </div>
+        </div>
+        <div class="hc-services">
+          <div class="hc-service">
+            <div class="hc-service-icon">🩺</div>
+            <div><div class="hc-service-name">Rawat Inap</div><div class="hc-service-desc">Fasilitas lengkap & nyaman</div></div>
+            <div class="hc-service-arrow">›</div>
+          </div>
+          <div class="hc-service">
+            <div class="hc-service-icon">💉</div>
+            <div><div class="hc-service-name">Paket Multivitamin</div><div class="hc-service-desc">5 pilihan paket terbaik</div></div>
+            <div class="hc-service-arrow">›</div>
+          </div>
+          <div class="hc-service">
+            <div class="hc-service-icon">🔬</div>
+            <div><div class="hc-service-name">Laboratorium</div><div class="hc-service-desc">Hasil cepat & akurat</div></div>
+            <div class="hc-service-arrow">›</div>
+          </div>
+        </div>
+        <div class="hc-badge">
+          <div class="hc-badge-icon">🎉</div>
+          <div>
+            <div class="hc-badge-text">Merayakan 3 Tahun!</div>
+            <div class="hc-badge-sub">Paket vitamin baru tersedia</div>
+          </div>
+        </div>
+        <div class="hero-float">
+          <div class="hf-dot"></div>
+          <div><div class="hf-text">Dokter Siaga</div><div class="hf-sub">Tersedia 24 Jam</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ LAYANAN ══ -->
+<section id="layanan">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag">Layanan Kami</div>
+      <h2 class="section-title">Pelayanan <em>Lengkap</em><br>untuk Seluruh Keluarga</h2>
+      <p class="section-desc">Kami menyediakan berbagai layanan medis terpadu dengan standar tinggi dan tenaga medis berpengalaman.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="sc-icon">🛏️</div>
+        <div class="sc-title">Rawat Inap</div>
+        <div class="sc-desc">Fasilitas rawat inap nyaman dengan monitoring 24 jam oleh tenaga medis terlatih.</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="sc-icon">🩺</div>
+        <div class="sc-title">Rawat Jalan</div>
+        <div class="sc-desc">Konsultasi dokter umum dan spesialis untuk berbagai keluhan kesehatan.</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="sc-icon">💉</div>
+        <div class="sc-title">Paket Multivitamin</div>
+        <div class="sc-desc">5 pilihan paket vitamin IV berkualitas untuk meningkatkan imunitas dan vitalitas.</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="sc-icon">🔬</div>
+        <div class="sc-title">Laboratorium</div>
+        <div class="sc-desc">Pemeriksaan laboratorium lengkap dengan peralatan modern dan hasil cepat.</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="sc-icon">🤰</div>
+        <div class="sc-title">Kesehatan Ibu & Anak</div>
+        <div class="sc-desc">Layanan khusus ibu hamil, menyusui, dan tumbuh kembang anak.</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="sc-icon">🚑</div>
+        <div class="sc-title">UGD 24 Jam</div>
+        <div class="sc-desc">Unit gawat darurat siap melayani kapan saja dengan penanganan cepat dan tepat.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PAKET VITAMIN ══ -->
+<section id="paket">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag">Paket Eksklusif 2026</div>
+      <h2 class="section-title">Paket <em>Multivitamin</em><br>Terbaru Kami</h2>
+      <p class="section-desc">Formulasi terbaik untuk mendukung kesehatan optimal Anda, diberikan langsung oleh tenaga medis terlisensi.</p>
+    </div>
+    <div class="packages-grid">
+
+      <div class="pkg-card bronze reveal">
+        <div class="pkg-tier">Bronze</div>
+        <div class="pkg-name">Multivitamin Esensial</div>
+        <div class="pkg-price">Rp 189.000</div>
+        <div class="pkg-target">👤 Dewasa</div>
+        <div class="pkg-divider"></div>
+        <div class="pkg-contents">
+          <span class="pkg-pill">Vitamin C</span>
+          <span class="pkg-pill">B1 · B2 · B6 · B12</span>
+          <span class="pkg-pill">Asam Folat</span>
+          <span class="pkg-pill">Biotin</span>
+        </div>
+      </div>
+
+      <div class="pkg-card silver reveal">
+        <div class="pkg-tier">Silver</div>
+        <div class="pkg-name">Multivitamin Lengkap</div>
+        <div class="pkg-price">Rp 250.000</div>
+        <div class="pkg-target">👥 Dewasa · Anak · Ibu Menyusui*</div>
+        <div class="pkg-divider"></div>
+        <div class="pkg-contents">
+          <span class="pkg-pill">Vitamin C</span>
+          <span class="pkg-pill">Thiamine</span>
+          <span class="pkg-pill">Riboflavin</span>
+          <span class="pkg-pill">Pyridoxine</span>
+          <span class="pkg-pill">Biotin</span>
+        </div>
+      </div>
+
+      <div class="pkg-card gold reveal">
+        <div class="pkg-featured">⭐ Terlaris</div>
+        <div class="pkg-tier">Gold</div>
+        <div class="pkg-name">Multivitamin Premium</div>
+        <div class="pkg-price">Rp 350.000</div>
+        <div class="pkg-target">👤 Dewasa</div>
+        <div class="pkg-divider"></div>
+        <div class="pkg-contents">
+          <span class="pkg-pill">Retinol</span>
+          <span class="pkg-pill">Vitamin D</span>
+          <span class="pkg-pill">Vitamin E</span>
+          <span class="pkg-pill">Vitamin C</span>
+          <span class="pkg-pill">Vitamin B Kompleks</span>
+        </div>
+      </div>
+
+      <div class="pkg-card anemia reveal">
+        <div class="pkg-tier">Spesial</div>
+        <div class="pkg-name">Vitamin Anemia & Kehamilan</div>
+        <div class="pkg-price">Rp 250.000</div>
+        <div class="pkg-target">🤰 Ibu Hamil · Dewasa · Ibu Menyusui</div>
+        <div class="pkg-divider"></div>
+        <div class="pkg-contents">
+          <span class="pkg-pill">B1 · B6 · B12</span>
+          <span class="pkg-pill">Iron Sucrose</span>
+        </div>
+      </div>
+
+      <div class="pkg-card immune reveal">
+        <div class="pkg-tier">Premium</div>
+        <div class="pkg-name">Immune Booster & Anti Aging</div>
+        <div class="pkg-price">Rp 450.000</div>
+        <div class="pkg-target">💪 Dewasa</div>
+        <div class="pkg-divider"></div>
+        <div class="pkg-contents">
+          <span class="pkg-pill">Vitamin C dosis tinggi</span>
+          <span class="pkg-pill">Retinol</span>
+          <span class="pkg-pill">Vitamin D · E</span>
+          <span class="pkg-pill">B Kompleks</span>
+        </div>
+      </div>
+
+    </div>
+    <p style="text-align:center;margin-top:24px;font-size:12px;color:rgba(255,255,255,0.45);">*Konsultasikan dengan dokter terlebih dahulu · Semua paket diberikan di bawah pengawasan medis</p>
+  </div>
+</section>
+
+<!-- ══ DOKTER ══ -->
+<section id="dokter">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag">Tim Medis</div>
+      <h2 class="section-title">Dokter <em>Berpengalaman</em><br>Siap Melayani Anda</h2>
+      <p class="section-desc">Tim dokter kami terdiri dari tenaga medis profesional dengan pengalaman dan dedikasi tinggi.</p>
+    </div>
+    <div class="doctors-grid">
+      <div class="doctor-card reveal">
+        <div class="doctor-photo teal">👨‍⚕️</div>
+        <div class="doctor-info">
+          <div class="doctor-name">dr. Ahmad Fauzi, Sp.PD</div>
+          <div class="doctor-spec">Spesialis Penyakit Dalam</div>
+          <div class="doctor-days">Senin – Jumat · 08.00–14.00</div>
+          <div class="doctor-badge">✓ Tersedia Hari Ini</div>
+        </div>
+      </div>
+      <div class="doctor-card reveal">
+        <div class="doctor-photo gold">👩‍⚕️</div>
+        <div class="doctor-info">
+          <div class="doctor-name">dr. Sari Dewi, Sp.OG</div>
+          <div class="doctor-spec">Spesialis Kandungan & Kebidanan</div>
+          <div class="doctor-days">Selasa – Sabtu · 09.00–15.00</div>
+          <div class="doctor-badge">✓ Tersedia Hari Ini</div>
+        </div>
+      </div>
+      <div class="doctor-card reveal">
+        <div class="doctor-photo green">👨‍⚕️</div>
+        <div class="doctor-info">
+          <div class="doctor-name">dr. Budi Santoso, Sp.A</div>
+          <div class="doctor-spec">Spesialis Anak</div>
+          <div class="doctor-days">Senin – Kamis · 16.00–20.00</div>
+          <div class="doctor-badge" style="background:#dcfce7;color:#166534;">✓ Tersedia Malam Ini</div>
+        </div>
+      </div>
+      <div class="doctor-card reveal">
+        <div class="doctor-photo blue">👩‍⚕️</div>
+        <div class="doctor-info">
+          <div class="doctor-name">dr. Rina Kusuma</div>
+          <div class="doctor-spec">Dokter Umum & IGD</div>
+          <div class="doctor-days">24 Jam · Siaga Setiap Hari</div>
+          <div class="doctor-badge" style="background:#dbeafe;color:#1e40af;">🔵 Siaga 24 Jam</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONI ══ -->
+<section id="testimoni">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag">Testimoni</div>
+      <h2 class="section-title">Apa Kata <em>Pasien</em> Kami?</h2>
+      <p class="section-desc">Kepuasan pasien adalah kebanggaan terbesar kami. Berikut pengalaman nyata dari mereka.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Pelayanannya ramah dan profesional banget. Dokternya sabar menjelaskan kondisi saya. Kamar rawat inapnya pun bersih dan nyaman. Terima kasih Klinik Ananda!"</div>
+        <div class="testi-author">
+          <div class="testi-avatar">R</div>
+          <div><div class="testi-name">Rina Andriani</div><div class="testi-role">Pasien Rawat Inap</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Saya coba paket vitamin immune booster, hasilnya luar biasa! Badan terasa lebih fit dan segar. Prosesnya cepat, perawatnya juga super baik dan profesional."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">D</div>
+          <div><div class="testi-name">Dian Pertiwi</div><div class="testi-role">Pasien Paket Vitamin</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Bawa anak yang demam tinggi malam-malam, langsung ditangani cepat di UGD. Dokter dan perawatnya sigap. Alhamdulillah anak saya cepat pulih. Highly recommended!"</div>
+        <div class="testi-author">
+          <div class="testi-avatar">H</div>
+          <div><div class="testi-name">Hendra Saputra</div><div class="testi-role">Orang Tua Pasien Anak</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ KONTAK ══ -->
+<section id="kontak">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag">Hubungi Kami</div>
+      <h2 class="section-title">Jadwalkan <em>Kunjungan</em><br>Anda Sekarang</h2>
+      <p class="section-desc">Kami siap melayani Anda. Hubungi kami atau isi form pendaftaran di bawah ini.</p>
+    </div>
+    <div class="kontak-grid">
+      <div>
+        <div class="kontak-info reveal">
+          <div class="kontak-item">
+            <div class="ki-icon">📍</div>
+            <div>
+              <div class="ki-label">Alamat</div>
+              <div class="ki-val">Jl. Kesehatan No. 123</div>
+              <div class="ki-sub">Jakarta Selatan, DKI Jakarta 12345</div>
+            </div>
+          </div>
+          <div class="kontak-item">
+            <div class="ki-icon">📞</div>
+            <div>
+              <div class="ki-label">Telepon</div>
+              <div class="ki-val">(021) 1234-5678</div>
+              <div class="ki-sub">Tersedia 24 Jam</div>
+            </div>
+          </div>
+          <div class="kontak-item">
+            <div class="ki-icon">💬</div>
+            <div>
+              <div class="ki-label">WhatsApp</div>
+              <div class="ki-val">0812-3456-7890</div>
+              <div class="ki-sub">Respon cepat jam 06.00 – 22.00</div>
+            </div>
+          </div>
+          <div class="kontak-item">
+            <div class="ki-icon">🕐</div>
+            <div>
+              <div class="ki-label">Jam Operasional</div>
+              <div class="ki-val">24 Jam / 7 Hari Seminggu</div>
+              <div class="ki-sub">UGD & Rawat Inap tidak pernah tutup</div>
+            </div>
+          </div>
+        </div>
+        <div class="map-placeholder reveal">
+          <div class="map-icon">🗺️</div>
+          <p>Peta lokasi klinik<br><small>Ganti dengan embed Google Maps Anda</small></p>
+        </div>
+      </div>
+
+      <div class="kontak-form reveal">
+        <div class="form-title">Form Pendaftaran</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nama Lengkap</label>
+            <input type="text" placeholder="Nama Anda">
+          </div>
+          <div class="form-group">
+            <label>No. Telepon / WA</label>
+            <input type="tel" placeholder="08xx-xxxx-xxxx">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Pilih Layanan</label>
+          <select>
+            <option>-- Pilih Layanan --</option>
+            <option>Konsultasi Dokter Umum</option>
+            <option>Konsultasi Dokter Spesialis</option>
+            <option>Paket Multivitamin Bronze – Rp 189.000</option>
+            <option>Paket Multivitamin Silver – Rp 250.000</option>
+            <option>Paket Multivitamin Gold – Rp 350.000</option>
+            <option>Paket Vitamin Anemia – Rp 250.000</option>
+            <option>Paket Immune Booster – Rp 450.000</option>
+            <option>Rawat Inap</option>
+            <option>Pemeriksaan Laboratorium</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tanggal & Waktu Kunjungan</label>
+          <input type="datetime-local">
+        </div>
+        <div class="form-group">
+          <label>Keluhan / Pesan (opsional)</label>
+          <textarea placeholder="Ceritakan keluhan atau pertanyaan Anda..."></textarea>
+        </div>
+        <button class="btn-submit" onclick="submitForm()">📅 Daftar Sekarang</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="fb-name">Klinik Utama Rawat Inap <span>Ananda</span></div>
+        <p>Melayani dengan sepenuh hati untuk kesehatan Anda dan keluarga. Tersedia 24 jam setiap hari.</p>
+        <a href="https://wa.me/6281234567890" class="fb-wa" target="_blank">
+          💬 Chat WhatsApp
+        </a>
+      </div>
+      <div class="footer-col">
+        <h4>Layanan</h4>
+        <ul>
+          <li><a href="#layanan">Rawat Inap</a></li>
+          <li><a href="#layanan">Rawat Jalan</a></li>
+          <li><a href="#paket">Paket Vitamin</a></li>
+          <li><a href="#layanan">Laboratorium</a></li>
+          <li><a href="#layanan">UGD 24 Jam</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informasi</h4>
+        <ul>
+          <li><a href="#dokter">Tim Dokter</a></li>
+          <li><a href="#testimoni">Testimoni</a></li>
+          <li><a href="#kontak">Kontak</a></li>
+          <li><a href="#">Profil Klinik</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontak Darurat</h4>
+        <ul>
+          <li><a href="tel:02112345678">📞 (021) 1234-5678</a></li>
+          <li><a href="https://wa.me/6281234567890">💬 WA: 0812-3456-7890</a></li>
+          <li><a href="#">📧 info@kliniканanda.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Klinik Utama Rawat Inap Ananda. Hak cipta dilindungi.</span>
+      <span>Dibuat dengan ❤️ untuk kesehatan Anda</span>
+    </div>
+  </div>
+</footer>
+
+<!-- WA Float Button -->
+<a href="https://wa.me/6281234567890" class="wa-float" target="_blank" title="Chat WhatsApp">
+  <div class="wa-pulse"></div>
+  💬
+</a>
+
+<script>
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Mobile menu
+function toggleMenu() {
+  const links = document.querySelector('.nav-links');
+  if (links.style.display === 'flex') {
+    links.style.display = 'none';
+  } else {
+    links.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:68px;left:0;right:0;background:var(--cream);padding:20px;border-bottom:1px solid var(--border);gap:16px;';
+  }
+}
+
+// Form submit
+function submitForm() {
+  alert('✅ Terima kasih! Pendaftaran Anda telah diterima.\nKami akan menghubungi Anda segera melalui WhatsApp.');
+}
+</script>
+</body>
+</html>
